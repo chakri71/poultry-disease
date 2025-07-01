@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Poultry Disease Prediction</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #e6f7ff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+    }
+
+    .container {
+      background-color: transparent;
+      padding: 20px;
+      max-width: 400px;
+      width: 100%;
+      position: relative;
+    }
+
+    h1 {
+      color: #0d1b2a;
+      font-size: 32px;
+      margin-bottom: 30px;
+    }
+
+    .upload-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    input[type="file"] {
+      padding: 12px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      background-color: #fff;
+      width: 100%;
+      max-width: 300px;
+    }
+
+    button {
+      background-color: #102542;
+      color: white;
+      border: none;
+      padding: 12px 30px;
+      font-size: 16px;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .result {
+      margin-top: 25px;
+      background-color: #ffffffcc;
+      padding: 15px;
+      border-radius: 10px;
+      color: #102542;
+    }
+
+    .preview-img {
+      margin-top: 10px;
+      max-width: 100%;
+      border-radius: 10px;
+    }
+
+    .chicken-img {
+      position: absolute;
+      top: 20px;
+      right: -240px; /* adjust based on your layout */
+      width: 200px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>POULTRY DISEASE PREDICTION</h1>
+
+    <form action="/predict" method="POST" enctype="multipart/form-data" class="upload-section">
+      <input type="file" name="image" accept="image/*" required>
+      <button type="submit">Predict</button>
+    </form>
+
+    {% if prediction %}
+    <div class="result">
+      <h3>Prediction: <strong>{{ prediction }}</strong></h3>
+      <h4>Confidence: <strong>{{ confidence }}%</strong></h4>
+      <img src="{{ image_url }}" alt="Uploaded Image" class="preview-img">
+    </div>
+    {% endif %}
+
+    <!-- Chicken Image -->
+    <img class="chicken" src="{{ url_for('static', filename='chicken.png') }}" alt="chicken image">
+  </div>
+</body>
+</html>
